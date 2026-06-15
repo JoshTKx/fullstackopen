@@ -2,7 +2,34 @@ import { useState } from 'react'
 
 const Header = ({title}) => <h1>{title}</h1>
 
-const Stats = ({name, num, unit = ""}) => <div>{name} {num} {unit}</div>
+const StatisticLine = ({text, value, unit = ""}) => {
+  return(
+    <tr>
+      <td>{text}</td>
+      <td>{value} {unit}</td>
+    </tr>
+  )
+}
+
+
+const Statistics = ({goodValue,neutralValue,badValue,all,average,positive}) => {
+  if (all === 0){
+    return <div>No feedback given</div>
+  }
+
+  return (
+    <table>
+      <tbody>
+        <StatisticLine text="good" value={goodValue}/>
+        <StatisticLine text="neutral" value={neutralValue}/>
+        <StatisticLine text="bad" value={badValue}/>
+        <StatisticLine text="all" value={all}/>
+        <StatisticLine text="average" value={average}/>
+        <StatisticLine text="positive" value={positive} unit='%'/>
+      </tbody>
+    </table>
+  )
+}
 
 const Button = ({onClick, text}) => {
   return <button onClick={onClick}>{text}</button>
@@ -23,7 +50,6 @@ const App = () => {
   const handlBadClick = () => setBad(bad + 1)
 
 
-
   return (
     <div>
       <Header title="give feedback"/>
@@ -34,12 +60,7 @@ const App = () => {
 
       <Header title="statistics" />
 
-      <Stats name="good" num={good} />
-      <Stats name="neutral" num={neutral} />
-      <Stats name="bad" num={bad} />
-      <Stats name="all" num={all} />
-      <Stats name="average" num={average} />
-      <Stats name="positive" num={positive} unit='%'/>
+      <Statistics goodValue={good} neutralValue={neutral} badValue={bad} all={all} average={average} positive={positive}/>
 
     </div>
   )
