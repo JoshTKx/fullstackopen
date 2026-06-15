@@ -1,23 +1,11 @@
 import { useState } from 'react'
 
-const Header = (props) => {
-  return (
-    <h1>{props.title}</h1>
-  )
-}
+const Header = ({title}) => <h1>{title}</h1>
 
-const Stats = (props) => {
-  return (
-    <div>{props.name} {props.num}</div>
-  )
-}
+const Stats = ({name, num}) => <div>{name} {num}</div>
 
-const Button = (props) => {
-  return (
-    <button onClick={props.onClick}>
-      {props.text}
-    </button>
-  )
+const Button = ({onClick, text}) => {
+  return <button onClick={onClick}>{text}</button>
 }
 
 const App = () => {
@@ -26,15 +14,17 @@ const App = () => {
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
 
-  const title = "give feedback"
+  const handleGoodClick = () => setGood(good + 1)
+  const handleNeutralClick = () => setNeutral(neutral + 1)
+  const handlBadClick = () => setBad(bad + 1)
 
   return (
     <div>
-      <Header title={title}/>
+      <Header title="give feedback"/>
 
-      <Button onClick={()=> setGood(good + 1) } text="good" />
-      <Button onClick={()=> setNeutral(neutral + 1) } text="neutral" />
-      <Button onClick={()=> setBad(bad + 1) } text="bad" />
+      <Button onClick={handleGoodClick} text="good" />
+      <Button onClick={handleNeutralClick} text="neutral" />
+      <Button onClick={handlBadClick} text="bad" />
 
       <Header title="statistics" />
 
